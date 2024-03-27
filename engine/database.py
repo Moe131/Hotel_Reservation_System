@@ -54,6 +54,8 @@ class Database:
                   reservation.email(), reservation.phone(), reservation.startDate(), reservation.endDate()) )
         self._connection.commit()
 
+
+
     def findRoom(self, roomType, startDate, endDate):
         """ Finds the roomNumber of the first available room | returns -1 if rooms are full """
         cursor = self._connection.cursor()

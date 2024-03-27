@@ -28,8 +28,8 @@ class Reserve :
         self._root.mainloop()
 
     def createMessageLabel(self):
-        messageLabel = tk.Label(self._root, text = "")
-        messageLabel.grid(row = 12, column = 0, columnspan = 2)
+        self._messageLabel = tk.Label(self._root, text = "")
+        self._messageLabel.grid(row = 12, column = 0, columnspan = 2)
 
     def createSubmitButton(self): ### work on this
         button = tk.Button(self._root, text = "Submit", command = self.submitClick)
@@ -47,19 +47,35 @@ class Reserve :
         room = Room(roomNumber,roomType)
 
         self._database.addReservation(Reservation(room, first, last, email, phone, checkIn,checkOut ))
+        self._messageLabel['text'] = "Your room has been successfully booked !"
+        self.resetFields();
+
+    def resetFields(self):
+        self.setEntry(self._firstNameEntry, "" )
+        self.setEntry(self._lastNameEntry, "" )
+        self.setEntry(self._emailEntry, "" )
+        self.setEntry(self._phoneEntry, "" )
+        self._r1.deselect()
+        self._r2.deselect()
+        self._r3.deselect()
+        self._r4.deselect()
+
+    def setEntry(self, entry, text):
+        entry.delete(0, tk.END)
+        entry.insert(0, text)
 
     def createRadioButton(self):
         self._var = tk.StringVar(self._root)
         roomLabel = tk.Label(self._root, text = "Type of room: ")
-        r1 = tk.Radiobutton(self._root, text = "Single", variable = self._var, value = "Single")
-        r2 = tk.Radiobutton(self._root, text = "Double", variable = self._var, value = "Double")
-        r3 = tk.Radiobutton(self._root, text = "Triple", variable = self._var, value = "Triple")
-        r4 = tk.Radiobutton(self._root, text = "Family", variable = self._var, value = "Family")
+        self._r1 = tk.Radiobutton(self._root, text = "Single", variable = self._var, value = "Single")
+        self._r2 = tk.Radiobutton(self._root, text = "Double", variable = self._var, value = "Double")
+        self._r3 = tk.Radiobutton(self._root, text = "Triple", variable = self._var, value = "Triple")
+        self._r4 = tk.Radiobutton(self._root, text = "Family", variable = self._var, value = "Family")
         roomLabel.grid(row=6, column = 0)
-        r1.grid(row= 7, column = 0)
-        r2.grid(row= 7, column = 1)
-        r3.grid(row= 8, column = 0)
-        r4.grid(row= 8, column = 1)
+        self._r1.grid(row= 7, column = 0)
+        self._r2.grid(row= 7, column = 1)
+        self._r3.grid(row= 8, column = 0)
+        self._r4.grid(row= 8, column = 1)
 
     def createDateInput(self):
         checkInDateLabel = tk.Label(self._root, text = "Check In Date: ")
