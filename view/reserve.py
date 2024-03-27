@@ -1,12 +1,15 @@
 import tkinter as tk
 from tkcalendar import DateEntry
+from engine.database import Database
+from engine.reservation import Reservation
 
 HEIGHT = 350
 WIDTH = 400
 
-class Reservation :
+class Reserve :
 
-    def __init__(self):
+    def __init__(self, database):
+        self._database = database
         self._root = tk.Tk()
         self._root.title("Check In")
         self._root.minsize(WIDTH,HEIGHT)
@@ -28,8 +31,11 @@ class Reservation :
         messageLabel.grid(row = 12, column = 0, columnspan = 2)
 
     def createSubmitButton(self):
-        button = tk.Button(self._root, text = "Submit")
+        button = tk.Button(self._root, text = "Submit", command = self.submitClick)
         button.grid(row = 11, column = 0, columnspan = 2)
+
+    def submitClick(self):
+        pass
 
     def createRadioButton(self):
         var = tk.StringVar()

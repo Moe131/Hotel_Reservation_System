@@ -5,7 +5,8 @@ WIDTH = 400
 
 class ManageReservation :
 
-    def __init__(self):
+    def __init__(self, database):
+        self._database = database
         self._root = tk.Tk()
         self._root.title("Guest Information")
         self._root.minsize(WIDTH,HEIGHT)

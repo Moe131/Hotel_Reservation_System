@@ -1,5 +1,5 @@
 import tkinter as tk
-from view.Reservation import Reservation
+from view.reserve import Reserve
 from view.availableRooms import AvailableRooms
 from view.manageReservation import ManageReservation
 
@@ -8,7 +8,8 @@ WIDTH = 400
 
 class Home :
 
-    def __init__(self):
+    def __init__(self, database):
+        self._database = database
         self._root = tk.Tk()
         self._root.title("Main")
         self._root.minsize(WIDTH,HEIGHT)
@@ -30,13 +31,13 @@ class Home :
         self._root.mainloop()
 
     def ReserveClick(self):
-        Reservation().run()
+        Reserve(self._database).run()
 
     def availableRoomsClick(self):
-        AvailableRooms().run()
+        AvailableRooms(self._database).run()
 
     def manageReservationClick(self):
-        ManageReservation().run()
+        ManageReservation(self._database).run()
 
     def exitClick(self):
         self._root.destroy()

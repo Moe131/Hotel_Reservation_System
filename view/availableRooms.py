@@ -5,7 +5,8 @@ WIDTH = 600
 
 class AvailableRooms :
 
-    def __init__(self):
+    def __init__(self, database):
+        self._database = database
         self._root = tk.Tk()
         self._root.title("Available Rooms")
         self._root.minsize(WIDTH,HEIGHT)

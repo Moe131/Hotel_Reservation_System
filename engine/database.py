@@ -1,6 +1,5 @@
 import sqlite3
-from events.room import Room
-from events.reservation import Reservation
+
 
 class Database:
 
@@ -17,7 +16,7 @@ class Database:
         self._connection.close()
 
     def createDatabaseFile(self):
-        """ This is only used once to create the database"""
+        """ This is only used once to create the engine"""
         cursor = self._connection.cursor()
         cursor.execute("""
             CREATE TABLE room (
@@ -39,7 +38,7 @@ class Database:
         """)
 
     def addRoom(self,room):
-        """ Can be used to add rooms the the database"""
+        """ Can be used to add rooms the the engine"""
         self._connection.cursor().execute("""
             INSERT INTO room (roomNumber, type) VALUES(?,?) ;
         """, (room.roomNumber(), room.roomType()) )
@@ -47,7 +46,8 @@ class Database:
 
     def addReservation(self, reservation):
         # Work on this
-        pass
+        print("Hello")
+
 
 
 if __name__ == "__main__":
