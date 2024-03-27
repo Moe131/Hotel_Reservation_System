@@ -14,7 +14,7 @@ class Reservation:
         return self._guest
 
     def room(self):
-        return self.room
+        return self._room
 
     def first(self):
         return self._first

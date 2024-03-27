@@ -61,9 +61,6 @@ class Reserve :
         r3.grid(row= 8, column = 0)
         r4.grid(row= 8, column = 1)
 
-    def radioClick(self, value):
-        self._var.set(value)
-
     def createDateInput(self):
         checkInDateLabel = tk.Label(self._root, text = "Check In Date: ")
         self._checkInDate = DateEntry(self._root, background= "magenta3", foreground= "black",bd=2)
