@@ -45,6 +45,10 @@ class Database:
         """, (room.roomNumber(), room.roomType()) )
         self._connection.commit()
 
+    def addReservation(self, reservation):
+        # Work on this
+        pass
+
 
 if __name__ == "__main__":
     d = Database("databaseFile.db")

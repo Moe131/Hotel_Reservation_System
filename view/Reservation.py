@@ -4,14 +4,14 @@ from tkcalendar import DateEntry
 HEIGHT = 350
 WIDTH = 400
 
-class CheckInFrame :
+class Reservation :
 
     def __init__(self):
         self._root = tk.Tk()
         self._root.title("Check In")
         self._root.minsize(WIDTH,HEIGHT)
 
-        headerLabel = tk.Label(self._root, text = "Check In", font= "Times 20")
+        headerLabel = tk.Label(self._root, text = "Reserve a room", font= "Times 20")
         headerLabel.grid(row= 0, column = 0, columnspan = 2)
 
         self.createInformationEntry()

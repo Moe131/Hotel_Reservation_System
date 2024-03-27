@@ -1,6 +1,6 @@
-from view.homeFrame import *
+from view.home import *
 def main():
-    home = HomeFrame()
+    home = Home()
     home.run()
 
 if __name__ == "__main__":

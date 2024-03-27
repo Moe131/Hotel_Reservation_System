@@ -3,7 +3,7 @@ import tkinter as tk
 HEIGHT = 500
 WIDTH = 600
 
-class AvailableRoomsFrame :
+class AvailableRooms :
 
     def __init__(self):
         self._root = tk.Tk()
