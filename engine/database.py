@@ -38,12 +38,10 @@ class Database:
 
     def addRoom(self,room):
         self._connection.cursor().execute("""
-            
-            
+                    
         """)
 
 if __name__ == "__main__":
     d = Database("databaseFile.db")
     d.open()
-    d.createDatabaseFile()
     d.close()
