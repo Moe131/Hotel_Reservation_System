@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkcalendar import DateEntry
 from engine.database import Database
+from engine.room import Room
 from engine.reservation import Reservation
 
 HEIGHT = 350
@@ -30,57 +31,70 @@ class Reserve :
         messageLabel = tk.Label(self._root, text = "")
         messageLabel.grid(row = 12, column = 0, columnspan = 2)
 
-    def createSubmitButton(self):
+    def createSubmitButton(self): ### work on this
         button = tk.Button(self._root, text = "Submit", command = self.submitClick)
         button.grid(row = 11, column = 0, columnspan = 2)
 
     def submitClick(self):
-        pass
+        first = self._firstNameEntry.get()
+        last = self._lastNameEntry.get()
+        email = self._emailEntry.get()
+        phone = self._phoneEntry.get()
+        checkIn = self._checkInDate.get_date()
+        checkOut = self._checkOutDate.get_date()
+        roomType = self._var.get()
+        roomNumber = self._database.findRoom(roomType, checkIn, checkOut);
+        room = Room(roomNumber,roomType)
+
+        self._database.addReservation(Reservation(room, first, last, email, phone, checkIn,checkOut ))
 
     def createRadioButton(self):
-        var = tk.StringVar()
+        self._var = tk.StringVar(self._root)
         roomLabel = tk.Label(self._root, text = "Type of room: ")
-        r1 = tk.Radiobutton(self._root, text = "Single", variable = var, value = "Single")
-        r2 = tk.Radiobutton(self._root, text = "Double", variable = var, value = "Double")
-        r3 = tk.Radiobutton(self._root, text = "Triple", variable = var, value = "Triple")
-        r4 = tk.Radiobutton(self._root, text = "Family", variable = var, value = "Family")
+        r1 = tk.Radiobutton(self._root, text = "Single", variable = self._var, value = "Single")
+        r2 = tk.Radiobutton(self._root, text = "Double", variable = self._var, value = "Double")
+        r3 = tk.Radiobutton(self._root, text = "Triple", variable = self._var, value = "Triple")
+        r4 = tk.Radiobutton(self._root, text = "Family", variable = self._var, value = "Family")
         roomLabel.grid(row=6, column = 0)
         r1.grid(row= 7, column = 0)
         r2.grid(row= 7, column = 1)
         r3.grid(row= 8, column = 0)
         r4.grid(row= 8, column = 1)
 
+    def radioClick(self, value):
+        self._var.set(value)
+
     def createDateInput(self):
         checkInDateLabel = tk.Label(self._root, text = "Check In Date: ")
-        checkInDate = DateEntry(self._root, background= "magenta3", foreground= "black",bd=2)
+        self._checkInDate = DateEntry(self._root, background= "magenta3", foreground= "black",bd=2)
         checkOutDateLabel = tk.Label(self._root, text = "Check Out Date: ")
-        checkOutDate = DateEntry(self._root, background= "magenta3", foreground= "black",bd=2)
+        self._checkOutDate = DateEntry(self._root, background= "magenta3", foreground= "black",bd=2)
 
         checkInDateLabel.grid(row=9, column = 0)
-        checkInDate.grid(row=9, column = 1)
+        self._checkInDate.grid(row=9, column = 1)
         checkOutDateLabel.grid(row=10, column = 0)
-        checkOutDate.grid(row=10, column = 1)
+        self._checkOutDate.grid(row=10, column = 1)
 
     def createInformationEntry(self):
         lineLabel = tk.Label(self._root, text = "_"*50)
         firstNameLabel = tk.Label(self._root, text = "First Name: ")
         lastNameLabel = tk.Label(self._root, text= "Last Name: ")
-        firstNameEntry = tk.Entry(self._root, width = 20)
-        lastNameEntry = tk.Entry(self._root, width = 20)
+        self._firstNameEntry = tk.Entry(self._root, width = 20)
+        self._lastNameEntry = tk.Entry(self._root, width = 20)
         emailLabel = tk.Label(self._root, text = "Email: ")
-        emailEntry = tk.Entry(self._root, width = 20)
+        self._emailEntry = tk.Entry(self._root, width = 20)
         phoneLabel = tk.Label(self._root, text = "Phone Number: ")
-        phoneEntry = tk.Entry(self._root, width = 20)
+        self._phoneEntry = tk.Entry(self._root, width = 20)
 
         lineLabel.grid(row= 1, column = 0, columnspan = 2)
         firstNameLabel.grid(row= 2, column = 0)
-        firstNameEntry.grid(row= 2, column = 1)
+        self._firstNameEntry.grid(row= 2, column = 1)
         lastNameLabel.grid(row= 3, column = 0)
-        lastNameEntry.grid(row= 3, column = 1)
+        self._lastNameEntry.grid(row= 3, column = 1)
         emailLabel.grid(row= 4, column = 0)
-        emailEntry.grid(row= 4, column = 1)
+        self._emailEntry.grid(row= 4, column = 1)
         phoneLabel.grid(row= 5, column = 0)
-        phoneEntry.grid(row= 5, column = 1)
+        self._phoneEntry.grid(row= 5, column = 1)
 
 
 if __name__ == "__main__":

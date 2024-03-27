@@ -46,9 +46,23 @@ class Database:
 
     def addReservation(self, reservation):
         # Work on this
-        print("Hello")
+        pass
 
+    def findRoom(self, roomType, startDate, endDate):
+        """ Finds the roomNumber of the first available room | returns -1 if rooms are full """
 
+        cursor = self._connection.cursor()
+        cursor.execute("""
+            SELECT room.roomNumber FROM room 
+            LEFT JOIN reservation ON room.roomNumber = reservation.roomNumber
+            WHERE room.type = ? AND (
+                reservation.roomNumber IS NULL OR 
+                NOT (reservation.startDate < ? AND reservation.endDate > ?)
+            );
+        """, (roomType, endDate, startDate))
+        roomNumber = cursor.fetchone()
+        print( roomNumber[0])
+        return roomNumber[0]
 
 if __name__ == "__main__":
     d = Database("databaseFile.db")
