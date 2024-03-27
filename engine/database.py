@@ -64,11 +64,10 @@ class Database:
             LEFT JOIN reservation ON room.roomNumber = reservation.roomNumber
             WHERE room.type = ? AND (
                 reservation.roomNumber IS NULL OR 
-                NOT (reservation.startDate < ? AND reservation.endDate > ?)
+                NOT (reservation.startDate <= ? AND reservation.endDate >= ?)
             );
         """, (roomType, endDate, startDate))
         roomNumber = cursor.fetchone()
-        print( roomNumber[0])
         return roomNumber[0]
 
 if __name__ == "__main__":
