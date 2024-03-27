@@ -1,4 +1,4 @@
-from GUI.homeFrame import *
+from view.homeFrame import *
 def main():
     home = HomeFrame()
     home.run()
