@@ -4,7 +4,7 @@ from engine.database import Database
 from engine.room import Room
 from engine.reservation import Reservation
 
-HEIGHT = 350
+HEIGHT = 360
 WIDTH = 400
 
 class Reserve :
@@ -44,8 +44,11 @@ class Reserve :
         checkOut = self._checkOutDate.get_date()
         roomType = self._var.get()
         roomNumber = self._database.findRoom(roomType, checkIn, checkOut);
+        if (roomNumber == -1):
+            self._messageLabel['text'] = "All " + roomType + " Rooms are booked during the selected date.\nTry a different date"
+            self.resetFields();
+            return
         room = Room(roomNumber,roomType)
-
         self._database.addReservation(Reservation(room, first, last, email, phone, checkIn,checkOut ))
         self._messageLabel['text'] = "Your room has been successfully booked !"
         self.resetFields();
