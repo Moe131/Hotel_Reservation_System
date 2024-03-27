@@ -3,11 +3,11 @@ class Room:
 
     def __init__(self, roomNumber, roomType):
         self._roomNumber = roomNumber;
-        self._type = type;
+        self._roomType = roomType;
 
 
     def roomNumber(self):
         return self._roomNumber;
 
-    def type(self):
+    def roomType(self):
         return self._roomType;

@@ -1,4 +1,4 @@
-from room import Room
+from events.room import Room
 class Reservation:
     """ Represents a reservation of a room"""
 

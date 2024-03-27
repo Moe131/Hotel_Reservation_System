@@ -1,4 +1,6 @@
 import sqlite3
+from events.room import Room
+from events.reservation import Reservation
 
 class Database:
 
@@ -37,11 +39,17 @@ class Database:
         """)
 
     def addRoom(self,room):
+        """ Can be used to add rooms the the database"""
         self._connection.cursor().execute("""
-                    
-        """)
+            INSERT INTO room (roomNumber, type) VALUES(?,?) ;
+        """, (room.roomNumber(), room.roomType()) )
+        self._connection.commit()
+
 
 if __name__ == "__main__":
     d = Database("databaseFile.db")
     d.open()
+
+
+
     d.close()
