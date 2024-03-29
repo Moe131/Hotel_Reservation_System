@@ -73,6 +73,17 @@ class Database:
             return -1
         return roomNumber[0]
 
+    def findReservation(self, email):
+        """ Finds the reservation associated with the email address | returns None if not found """
+        cursor = self._connection.cursor()
+        cursor.execute("""
+            SELECT roomNumber, firstName, lastName, email, phone, startDate, EndDate FROM reservation 
+            WHERE email = ? ;
+        """ , ( email, ))
+        result = cursor.fetchone()
+        return result;
+
+
 if __name__ == "__main__":
     d = Database("databaseFile.db")
     d.open()
