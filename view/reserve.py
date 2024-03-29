@@ -36,22 +36,29 @@ class Reserve :
         button.grid(row = 11, column = 0, columnspan = 2)
 
     def submitClick(self):
-        first = self._firstNameEntry.get()
-        last = self._lastNameEntry.get()
-        email = self._emailEntry.get()
-        phone = self._phoneEntry.get()
-        checkIn = self._checkInDate.get_date()
-        checkOut = self._checkOutDate.get_date()
-        roomType = self._var.get()
-        roomNumber = self._database.findRoom(roomType, checkIn, checkOut);
-        if (roomNumber == -1):
-            self._messageLabel['text'] = "All " + roomType + " Rooms are booked during the selected date.\nTry a different date"
-            self.resetFields();
+        try :
+            first = read(self._firstNameEntry.get())
+            last = read(self._lastNameEntry.get())
+            email = read(self._emailEntry.get())
+            phone = read(self._phoneEntry.get())
+            checkIn = self._checkInDate.get_date()
+            checkOut = self._checkOutDate.get_date()
+            if self._var.get() == "":
+                raise Exception("NULL constraint")
+            roomType = self._var.get()
+            roomNumber = self._database.findRoom(roomType, checkIn, checkOut)
+            if roomNumber == -1:
+                self._messageLabel['text'] = "All " + roomType + " Rooms are booked during the selected date.\nTry a different date"
+                return
+            room = Room(roomNumber,roomType)
+            self._database.addReservation(Reservation(room, first, last, email, phone, checkIn,checkOut ))
+            self._messageLabel['text'] = "Your room has been successfully booked !\nYour room number is " + str(roomNumber)
+            self.resetFields()
+        except Exception as e:
+            if "NULL constraint" in str(e):
+                self._messageLabel['text'] = "All the Fields Must be Filled Out."
+                return
             return
-        room = Room(roomNumber,roomType)
-        self._database.addReservation(Reservation(room, first, last, email, phone, checkIn,checkOut ))
-        self._messageLabel['text'] = "Your room has been successfully booked !"
-        self.resetFields();
 
     def resetFields(self):
         self.setEntry(self._firstNameEntry, "" )
@@ -111,6 +118,13 @@ class Reserve :
         self._emailEntry.grid(row= 4, column = 1)
         phoneLabel.grid(row= 5, column = 0)
         self._phoneEntry.grid(row= 5, column = 1)
+
+
+def read(input):
+    if input == "":
+        return None
+    else:
+        return input
 
 
 if __name__ == "__main__":

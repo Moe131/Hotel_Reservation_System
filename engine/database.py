@@ -70,7 +70,7 @@ class Database:
 
         roomNumber = cursor.fetchone()
         if roomNumber is None:
-            return -1;
+            return -1
         return roomNumber[0]
 
 if __name__ == "__main__":
