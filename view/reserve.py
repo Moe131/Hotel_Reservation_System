@@ -12,10 +12,10 @@ class Reserve :
     def __init__(self, database):
         self._database = database
         self._root = tk.Tk()
-        self._root.title("Check In")
+        self._root.title("Reserve")
         self._root.minsize(WIDTH,HEIGHT)
 
-        headerLabel = tk.Label(self._root, text = "Reserve a room", font= "Times 20")
+        headerLabel = tk.Label(self._root, text = "Reserve a Room", font= "Times 20")
         headerLabel.grid(row= 0, column = 0, columnspan = 2)
 
         self.createInformationEntry()

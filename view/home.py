@@ -11,7 +11,7 @@ class Home :
     def __init__(self, database):
         self._database = database
         self._root = tk.Tk()
-        self._root.title("Main")
+        self._root.title("Home Page")
         self._root.minsize(WIDTH,HEIGHT)
 
         welcomeLabel = tk.Label(self._root, text = "Welcome to Hotel Reservation System", font= "Times 20")

@@ -8,7 +8,7 @@ class ManageReservation :
     def __init__(self, database):
         self._database = database
         self._root = tk.Tk()
-        self._root.title("Guest Information")
+        self._root.title("Manage Reservation")
         self._root.minsize(WIDTH,HEIGHT)
 
         headerLabel = tk.Label(self._root, text = "Manage Reservation", font= "Times 20")

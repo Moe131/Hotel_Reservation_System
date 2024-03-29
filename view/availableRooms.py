@@ -1,7 +1,8 @@
 import tkinter as tk
 
-HEIGHT = 500
-WIDTH = 600
+
+HEIGHT = 350
+WIDTH = 400
 
 class AvailableRooms :
 
