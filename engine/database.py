@@ -91,6 +91,19 @@ class Database:
             WHERE email = ? AND startDate = ? AND endDate = ? ;
         """ , ( email, startDate, endDate ))
 
+    def searchRooms(self, startDate, endDate):
+        """ Finds the roomNumber of the first available room | returns -1 if rooms are full """
+        cursor = self._connection.cursor()
+        cursor.execute("""
+            SELECT room.roomNumber, room.type FROM room 
+            LEFT JOIN reservation ON room.roomNumber = reservation.roomNumber
+            WHERE reservation.roomNumber IS NULL OR 
+                NOT (reservation.startDate <= ? AND reservation.endDate >= ?);
+        """, (endDate, startDate))
+        rooms = cursor.fetchall()
+        for room in rooms:
+            yield room
+
 if __name__ == "__main__":
     d = Database("databaseFile.db")
     d.open()

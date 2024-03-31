@@ -2,7 +2,7 @@ import tkinter as tk
 from tkcalendar import DateEntry
 
 
-HEIGHT = 350
+HEIGHT = 360
 WIDTH = 400
 
 class AvailableRooms :
@@ -15,6 +15,7 @@ class AvailableRooms :
 
         self.createHeader()
         self.createDateInput()
+        self.createRoomList()
 
     def run(self):
         self._root.mainloop()
@@ -41,8 +42,18 @@ class AvailableRooms :
         self._checkOutDate.grid(row=5, column = 1)
         button.grid(row=6, column = 0, columnspan = 2)
 
+    def createRoomList(self):
+        self._listbox = tk.Listbox(self._root , width = 30  )
+        self._listbox.grid(row=8, column = 0, columnspan = 2)
+
+
     def onCheck(self):
-        pass
+        self._message = tk.Label(self._root, text = " Here are the available rooms in selected dates:")
+        self._message.grid(row=7, column = 0, columnspan = 2)
+        i=0;
+        for room in self._database.searchRooms(self._checkInDate.get_date(),self._checkOutDate.get_date()):
+            self._listbox.insert(i, "Room " + str(room[0]) + " - " + str(room[1]) )
+            i+=1
 
 if __name__ == "__main__":
     pass
