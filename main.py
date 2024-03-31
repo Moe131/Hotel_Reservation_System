@@ -1,5 +1,6 @@
 from view.home import *
 from engine.database import Database
+
 def main():
     database = Database("engine/databaseFile.db")
     database.open()
