@@ -15,3 +15,7 @@ This is a simple hotel reservation system designed to manage bookings and room a
 - Database: SQlite3
 - Other tools: Git
 
+
+## Contributions
+
+Contributions are welcome! Please fork the repository and submit a pull request.
