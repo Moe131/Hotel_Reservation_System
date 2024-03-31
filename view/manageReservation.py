@@ -1,6 +1,6 @@
 import tkinter as tk
 
-HEIGHT = 350
+HEIGHT = 400
 WIDTH = 400
 
 class ManageReservation :
@@ -34,6 +34,10 @@ class ManageReservation :
         self._StartDateLabel2 = tk.Label(self._root, text = "-")
         EndDateLabel = tk.Label(self._root, text = "End Date: ")
         self._EndDateLabel2 = tk.Label(self._root, text = "-")
+        self._cancelButton = tk.Button(self._root, text = "Cancel Reservation", state = "disabled", command = self.onCancel)
+        self._cancelMessageLabel = tk.Label(self._root, text= "")
+
+
 
         headerLabel.grid(row= 0, column = 0, columnspan = 2)
         lineLabel.grid(row= 1, column = 0, columnspan = 2)
@@ -56,6 +60,8 @@ class ManageReservation :
         self._StartDateLabel2.grid(row=12, column = 1)
         EndDateLabel.grid(row=13, column = 0)
         self._EndDateLabel2.grid(row=13, column = 1)
+        self._cancelButton.grid(row = 14, column = 0, columnspan = 2)
+        self._cancelMessageLabel.grid(row = 15, column = 0, columnspan = 2)
 
     def run(self):
         self._root.mainloop()
@@ -63,6 +69,7 @@ class ManageReservation :
     def onRetrieve(self):
         email = self._reservationEmailEntry.get()
         reservation = self._database.findReservation(email)
+        self._cancelMessageLabel["text"] = ""
         if reservation is None:
             self.resetFields()
             self._messageLabel["text"] = "No reservation was found with the provided email."
@@ -75,6 +82,17 @@ class ManageReservation :
         self._phoneLabel2["text"] = reservation[4]
         self._StartDateLabel2["text"] = reservation[5]
         self._EndDateLabel2["text"] = reservation[6]
+        self._cancelButton["state"] = "normal"
+
+
+
+
+    def onCancel(self):
+
+        self._database.cancelReservation( self._reservationEmailEntry.get(),self._StartDateLabel2.cget("text"), self._EndDateLabel2.cget("text"))
+        self._cancelMessageLabel["text"] = "Your reservation was successfully cancelled."
+        self._cancelButton["state"] = "disabled"
+        self.resetFields()
 
 
     def resetFields(self):

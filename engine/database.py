@@ -83,6 +83,13 @@ class Database:
         result = cursor.fetchone()
         return result;
 
+    def cancelReservation(self, email, startDate, endDate):
+        """ Deletes the reservation associated with the email address and dates """
+        cursor = self._connection.cursor()
+        cursor.execute("""
+            DELETE FROM reservation 
+            WHERE email = ? AND startDate = ? AND endDate = ? ;
+        """ , ( email, startDate, endDate ))
 
 if __name__ == "__main__":
     d = Database("databaseFile.db")
